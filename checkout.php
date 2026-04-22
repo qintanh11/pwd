@@ -1,6 +1,10 @@
 <?php 
 session_start();
-$_SESSION['barang'] = $_POST['qty-<?php echo $i; ?>'];
+if(isset($_POST['id'])) {
+    $id = $_POST['id'];
+    $qty = $_POST['qty'];
+    $_SESSION['keranjang'][$id] = $qty; // Simpan ke dalam array session
+}
 include 'koneksi.php';
 ?>
 <!DOCTYPE html>
@@ -23,7 +27,18 @@ include 'koneksi.php';
   </div>
 </nav>
 <div class="container">
-<?= $_SESSION['barang']; ?>
+<?php
+echo "<h1>Ringkasan Pesanan</h1>";
+
+if(isset($_SESSION['keranjang'])) {
+    foreach($_SESSION['keranjang'] as $id => $jumlah) {
+        if($jumlah > 0) {
+            echo "Menu ID: $id - Jumlah: $jumlah <br>";
+        }
+    }
+}
+?>
+
 </div>    
 </body>
 </html>

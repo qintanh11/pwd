@@ -39,7 +39,9 @@ session_start();
     <div class="menu">
         <form action="checkout.php" method="post">
         <div class="row">
-            
+        <?php for($i=0;$i<10;$i++){ 
+            $jumlah[$i] = 0;
+            } ?>
         <?php for($i=0;$i<10;$i++){ ?>
             <div class="col-6">
         <div class="card mb-3" style="max-width: 540px;">
@@ -52,7 +54,8 @@ session_start();
                 <h5 class="card-title">Card title</h5>
                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 <?php 
-                $jumlah[$i] = 0; ?>
+                if(isset($_SESSION['keranjang'][$i])) {
+                $jumlah[$i] = $_SESSION['keranjang'][$i]; } ?>
                 
                
                 <div class="input-group">
@@ -76,36 +79,27 @@ session_start();
 </html>
 
 <script>
-    function ubahJadiInput(id) {
-    // Kita mencari wadah berdasarkan ID uniknya
-    const wadah = document.getElementById('wadah-' + id);
-    
-    // Ganti isi wadah tersebut
-    wadah.innerHTML = `
-        <div class="input-group">
-            <button class="btn btn-sm btn-outline-primary" onclick="kurangi(${id})">-</button>
-            <input type="number" id="qty-${id}" class="form-control form-control-sm text-center" value="1">
-            <button class="btn btn-sm btn-outline-primary" onclick="tambah(${id})">+</button>
-        </div>
-    `;
+    function updateSession(id, qty) {
+    // Kirim data ke file PHP lain untuk disimpan di SESSION
+    fetch('checkout.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `id=${id}&qty=${qty}`
+    });
 }
-    function tambah(id) {
+
+function tambah(id) {
     let input = document.getElementById('qty-' + id);
     input.value = parseInt(input.value) + 1;
+    updateSession(id, input.value); // Simpan ke session
 }
 
 function kurangi(id) {
     let input = document.getElementById('qty-' + id);
-    
     if (input.value > 0) {
         input.value = parseInt(input.value) - 1;
-    } else {
-        // Jika 0, kembalikan tombol aslinya
-        document.getElementById('wadah-' + id).innerHTML = `
-            <button class="btn btn-primary btn-sm w-100" onclick="ubahJadiInput(${id})">
-                Tambah Pesanan
-            </button>
-        `;
+        updateSession(id, input.value); // Simpan ke session
     }
+    // ... sisa logika kurangi kamu ...
 }
 </script>
