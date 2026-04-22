@@ -2,7 +2,7 @@
 $hostname = 'localhost';
 $username= 'root';
 $pass= '';
-$database= '';
+$database= 'kasir';
 $port= '3306';
 
 $koneksi = new mysqli ($hostname, $username, $pass, $database, $port);
