@@ -1,5 +1,8 @@
 <?php  
+include 'koneksi.php';
 session_start();
+
+$query=$koneksi -> query("select*from menu inner join kategori on menu.id_kategori = kategori.id_kategori");
 
 ?>
 
@@ -37,12 +40,10 @@ session_start();
 </nav>    
 <div class="container">
     <div class="menu">
-        <form action="checkout.php" method="post">
+        <form action="checkout.php">
         <div class="row">
-        <?php for($i=0;$i<10;$i++){ 
-            $jumlah[$i] = 0;
-            } ?>
-        <?php for($i=0;$i<10;$i++){ ?>
+
+        <?php while($tambah_pesan = mysqli_fetch_assoc($query)){ ?>
             <div class="col-6">
         <div class="card mb-3" style="max-width: 540px;">
           <div class="row g-0">
@@ -51,17 +52,36 @@ session_start();
             </div>
             <div class="col-md-8">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <h5 class="card-title"><?= $tambah_pesan['nama_menu']; ?></h5>
+                <p class="card-text"><?= $tambah_pesan['kategori']; ?></p>
                 <?php 
-                if(isset($_SESSION['keranjang'][$i])) {
-                $jumlah[$i] = $_SESSION['keranjang'][$i]; } ?>
-                
-               
+                $qyt['id_menu'] = isset($_SESSION['qyt']['id_menu']);
+
+                ?>
+
+                <?php 
+                $id_makan= $tambah_pesan['id_menu'];
+                $jumlah_pesan= isset($_SESSION['keranjang']['id_makan']);
+                if(isset($_SESSION['keranjang'][$tambah_pesan['id_menu']])) {
+                $jumlah[$tambah_pesan['id_menu']] = $_SESSION['keranjang'][$tambah_pesan['id_menu']]; }
+                else{ $jumlah[$tambah_pesan['id_menu']]=0;} 
+                ?>          
                 <div class="input-group">
-                <input type="button" class="btn btn-primary" onclick="kurangi(<?php echo $i; ?>)" placeholder="-"></input>
-                <input type="number" class="form-control text-center" min="0" value="<?php echo $jumlah[$i]; ?>" id="qty-<?php echo $i; ?>">
-                <input type="button" class="btn btn-primary" onclick="tambah(<?php echo $i; ?>)" placeholder="+"></input>
+              <p onclick="tambah_qyt(<?= $tambah_pesan['id_menu']; ?>)">
+                <i class="bi bi-plus"></i></p>
+              
+              
+                <p id="jumlah" >tambah menu</p>
+                 
+                <!-- <p onclick="this.innerText == 'klik lagi serius gajadi boong' > -->
+
+                <!-- // (document.getElementById('klik').innerHTML='boong &lt;br&gt; bayar utang lu',this.innerText='')
+                //  : this.innerText == 'Klik Lagi' ? (document.getElementById('klik').innerHTML='Tapi boong',
+                //   this.innerText='klik lagi serius gajadi boong') : (document.getElementById('klik').innerHTML='i love you!',
+                //    this.innerText='Klik Lagi') 
+                // Click me!  </p> -->
+               
+              <p><i class="bi bi-dash"></i></p>
                 </div>
                 
             </div>
@@ -79,27 +99,26 @@ session_start();
 </html>
 
 <script>
-    function updateSession(id, qty) {
-    // Kirim data ke file PHP lain untuk disimpan di SESSION
-    fetch('checkout.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `id=${id}&qty=${qty}`
-    });
-}
+  function updateUI(id, qty) {
+    let display = document.getElementById('qty-display-' + id);
+    let inputHidden = document.getElementById('qty-val-' + id);
 
-function tambah(id) {
-    let input = document.getElementById('qty-' + id);
-    input.value = parseInt(input.value) + 1;
-    updateSession(id, input.value); // Simpan ke session
-}
+    // Update nilai di hidden input
+    inputHidden.value = qty;
 
-function kurangi(id) {
-    let input = document.getElementById('qty-' + id);
-    if (input.value > 0) {
-        input.value = parseInt(input.value) - 1;
-        updateSession(id, input.value); // Simpan ke session
+    // Update tampilan teks
+    if (qty > 0) {
+        display.innerText = qty;
+    } else {
+        display.innerText = "tambah menu";
     }
-    // ... sisa logika kurangi kamu ...
+
+    // (Opsional) Kirim ke session via fetch jika ingin permanen
+    // updateSession(id, qty); 
+}
+function tambah(id) {
+    let currentQty = parseInt(document.getElementById('qty-val-' + id).value);
+    let newQty = currentQty + 1;
+    updateUI(id, newQty);
 }
 </script>

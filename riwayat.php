@@ -1,5 +1,7 @@
 <?php
+include 'koneksi.php';
 session_start();
+$query=$koneksi -> query("select*from riwayat inner join transaksi on riwayat.id_transaksi = transaksi.id_transaksi");
 ?>
 
 <!DOCTYPE html>
@@ -14,12 +16,25 @@ session_start();
     
 </head>
 <body>
+    <table>
 <ul class="list-group list-group-flush">
-<?php for($i=0;$i<5;$i++){ ?>
-    <a href="struk.php"><li class="list-group-item" id="pesanan<?= $i; ?>">
-    <label for="pesanan<?= $i; ?>">pesanan<?= $i; ?></label>
-    </li></a>
+<?php while($riwayat = mysqli_fetch_assoc($query)){ ?>
+<tr>
+    <td><a href="struk.php">
+    <li class="list-group-item" id="pesanan<?= $i; ?>">
+    <label for="pesanan<?= $i; ?>"> <?= $riwayat['id_riwayat']; ?></label>
+    </li>
+    </a></td>
+    <td align="center">
+        <?= $riwayat['tanggal']; ?>
+    </td>
+    <td>
+        <?= $riwayat['total_harga']; ?>
+    </td>
+
+</tr>
 <?php } ?>
 </ul>
+</table>
 </body>
 </html>
