@@ -139,6 +139,6 @@ if(isset($_POST['bayar_btn'])){
         ");
     }
 
-    echo "<script>window.location='detail.php?id=$id_pesanan';</script>";
+    echo "<script>window.location='struk.php?id=$id_pesanan';</script>";
 }
 ?>

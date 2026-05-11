@@ -12,18 +12,13 @@ include 'koneksi.php';
 <style>
 .cart-sidebar{
     position: fixed;
-
     top: 56px; /* tinggi navbar */
     right: 0;
-
     width: 300px;
     height: calc(100vh - 56px);
-
     background: white;
     border-left: 1px solid #ddd;
-
     padding: 20px;
-
     overflow-y: auto;
 }
 .ul{
@@ -34,7 +29,7 @@ include 'koneksi.php';
 <body>
 <div class="cart-sidebar">
 <ul class="list-group list-group-flush">
-    <div id="keranjang">
+    <div id="list-cart">
 
 <p class="text-muted">
 Belum ada pesanan

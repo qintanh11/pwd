@@ -34,6 +34,7 @@ $data = mysqli_query($koneksi, "SELECT pesanan.*, user.username
                     <th>Total</th>
                     <th>Bayar</th>
                     <th>Kembalian</th>
+                    <th>Struk</th>
                 </tr>
 
                 <?php while($d=mysqli_fetch_array($data)){?>
@@ -44,6 +45,12 @@ $data = mysqli_query($koneksi, "SELECT pesanan.*, user.username
                     <td>Rp <?= number_format($d['total']) ?></td>
                     <td>Rp <?= number_format($d['bayar']) ?></td>
                     <td>Rp <?= number_format($d['bayar'] - $d['total']) ?></td>
+                    <td>
+                        <form action="struk.php" method="get">
+                            <input type="hidden" name="id" value="<?= $d['id_pesanan'] ?>">
+                            <button type="submit" class="btn btn-sm btn-primary">Detail Transaksi</button>
+                        </form>                   
+                     </td>
                 </tr>
 
                 <?php } ?>

@@ -69,6 +69,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 </head>
 <body>
 <div class="menu-box">
+
     <!-- Menu dengan kategori makanan -->
     <h3>Makanan</h3>
     <div class="menu-box-kategori">
@@ -90,8 +91,7 @@ style="cursor:pointer;">
     </div>
     </div>
     </div>
-    </div>
-    <?php } ?>
+    <?php }    ?>
     </div>
     <!-- Menu dengan kategori minuman -->
      <h3>Minuman</h3>
@@ -104,8 +104,6 @@ onclick="tambah(
 <?= $pesan['harga'] ?>
 )"
 style="cursor:pointer;">
-<div class="card shadow-sm text-center"
-style="cursor:pointer;">
     <div class="card" style="width: 13rem;">
     <img src="..." class="card-img-top" alt="...">
     <div class="card-body">
@@ -113,7 +111,6 @@ style="cursor:pointer;">
           <?= $pesan['nama_menu']; ?>  <br>
            Rp. <?= $pesan['harga']; ?> 
         </p>
-    </div>
     </div>
     </div>
     </div>
@@ -140,14 +137,8 @@ style="cursor:pointer;">
     </div>
     </div>
     </div>
-     </div>
     <?php } ?>
      </div>
-     <label for="open-cart" class="floating-cart">
-    <div>
-        <i class="bi bi-cart4"></i>
-    </div>  
-</label>
 </div>
 
 

@@ -1,10 +1,10 @@
 <?php
 include 'koneksi.php';
 session_start();
-// if (!isset($_SESSION['username'])) {
-//     header("Location: loginregist.php");
-//     exit();
-// }
+if (!isset($_SESSION['username'])) {
+    header("Location: loginregist.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,21 +16,29 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
 <style>
+nav{
+    background: #202b37;
+}
+
 .navbar{
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
     margin: 0;
+    background: #202b37;
+    
+}
+.navbar-brand {
+    font-weight: bold;
+    -webkit-text-stroke: 1px white;
 }
 .menu{
     position: fixed;
     top: 50px;
     left: 0;
-
     width: 220px;
     height: 100vh;
-
     background: #2c3e50;
     padding-top: 20px;
 }
@@ -56,6 +64,30 @@ session_start();
     margin-left: 220px;
     margin-right: 300px;
 }
+
+.floating-cart{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 60px;
+    height: 60px;
+    background: #0d6efd;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: 0.3s;
+}
+
+.floating-cart:hover{
+    transform: scale(1.1);
+    background: #0b5ed7;
+}
 #home:checked ~ .konten .home{
     display: block;
 }
@@ -80,14 +112,9 @@ session_start();
 #riwayat:checked ~ .konten .home{
     display: none;
 }
-#open-cart:checked ~ .konten .keranjang{
-    display: block;
+#cart:checked ~ .cart{
+    display: none;
 }
-/* saat cart aktif */
-#open-cart:checked ~ .cart-keranjang{
-    right: 0;
-}
-
 /* content default */
 .konten{
     margin-left: 220px;
@@ -95,32 +122,31 @@ session_start();
     transition: 0.3s;
 }
 
-/* saat cart aktif */
-#open-cart:checked ~ .konten{
-    margin-right: 20px;
-}
 </style>
 </head>
 <body>
 <input type="radio" id="home" name="menu" checked>
 <input type="radio" id="pesanan" name="menu">
 <input type="radio" id="riwayat" name="menu">
-<input type="checkbox" id="open-cart">
+<input type="checkbox" id="cart" name="keranjang"checked>
+<nav class="navbar nav fixed-top">
 <div class="navbar">    
-<nav class="navbar bg-body-tertiary fixed-top">
+
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-      <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-      Bootstrap
+      <img src="https://i.pinimg.com/736x/31/50/7a/31507a21a55ff88f5525b141cbfd2027.jpg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+      Kicauan mania
     </a>
   </div>
-</nav>
 </div>
+
+</nav>
 <div class="menu">
     <ul>
         <li><label for="home" class="btn-menu">Home</label></li>
         <li><label for="pesanan" class="btn-menu">Pesanan</label></li>
         <li><label for="riwayat" class="btn-menu">Riwayat</label></li>
+        <li><label class="btn-menu"><a href="logout.php" style="color: white; text-decoration: none; ">Log Out</a></label></li>
     </ul>
 </div>
 <div class="konten">
@@ -129,11 +155,15 @@ session_start();
 </div>
 <div class="pesanan">
 <?php include 'pesanan.php'; ?>
+<label for="cart" class="floating-cart">
+    <i class="bi bi-cart4"></i>
+</label>
 </div>    
 <div class="riwayat">
 <?php include 'riwayat.php'?>
 </div>
-<div class="keranjang">
+</div>
+<div class="cart">
 <?php include 'keranjang.php'; ?>
 </div>
 
@@ -206,7 +236,7 @@ function render(){
         });
     }
 
-    document.getElementById("keranjang")
+    document.getElementById("list-cart")
     .innerHTML = html;
 
     document.getElementById("totalItem")
