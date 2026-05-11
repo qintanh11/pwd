@@ -5,7 +5,6 @@ session_start();
 //     header("Location: loginregist.php");
 //     exit();
 // }
-$_SESSION['username'] = 'qintan';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,7 +81,7 @@ $_SESSION['username'] = 'qintan';
     display: none;
 }
 #open-cart:checked ~ .konten .keranjang{
-    display: none;
+    display: block;
 }
 /* saat cart aktif */
 #open-cart:checked ~ .cart-keranjang{
@@ -92,15 +91,13 @@ $_SESSION['username'] = 'qintan';
 /* content default */
 .konten{
     margin-left: 220px;
-
     padding: 20px 20px 20px;
-
     transition: 0.3s;
 }
 
 /* saat cart aktif */
 #open-cart:checked ~ .konten{
-    margin-right: 0;
+    margin-right: 20px;
 }
 </style>
 </head>
@@ -108,7 +105,7 @@ $_SESSION['username'] = 'qintan';
 <input type="radio" id="home" name="menu" checked>
 <input type="radio" id="pesanan" name="menu">
 <input type="radio" id="riwayat" name="menu">
-<input type="checkbox" id="open-cart" checked>
+<input type="checkbox" id="open-cart">
 <div class="navbar">    
 <nav class="navbar bg-body-tertiary fixed-top">
   <div class="container-fluid">
@@ -132,93 +129,102 @@ $_SESSION['username'] = 'qintan';
 </div>
 <div class="pesanan">
 <?php include 'pesanan.php'; ?>
-
 </div>    
 <div class="riwayat">
-ini riwayat;
+<?php include 'riwayat.php'?>
 </div>
 <div class="keranjang">
 <?php include 'keranjang.php'; ?>
 </div>
 
 <script>
-let cart=[];
+
+let cart = [];
 
 function tambah(id,nama,harga){
-let item=cart.find(i=>i.id===Number(id));
-
-if(item){
-    item.qty++;
-}else{
-    cart.push({id,nama,harga,qty:1});
-}
-
-render();
+    let item = cart.find(i => i.id == id);
+    if(item){
+        item.qty++;
+    }else{
+        cart.push({
+            id:id,
+            nama:nama,
+            harga:harga,
+            qty:1
+        });
+    }
+    render();
 }
 
 function kurang(id){
-let item=cart.find(i=>i.id==id);
-
-if(item){
-    item.qty--;
-    if(item.qty<=0){
-        cart=cart.filter(i=>i.id!=id);
+    let item = cart.find(i => i.id == id);
+    if(item){
+        item.qty--;
+        if(item.qty <= 0){
+            cart = cart.filter(i => i.id != id);
+        }
     }
-}
-
-render();
+    render();
 }
 
 function render(){
-let html="";
-let total=0;
-let jumlah=0;
 
-if(cart.length==0){
-    html=`<p class="text-muted">Belum ada pesanan</p>`;
-}else{
+    let html = "";
+    let total = 0;
+    let jumlah = 0;
 
-cart.forEach(item=>{
-total += item.harga * item.qty;
-jumlah += item.qty;
+    if(cart.length == 0){
+        html = `<p class="text-muted">
+        Belum ada pesanan
+        </p>`;
+    }else{
 
-html += `
-<div class="d-flex justify-content-between mb-2 border-bottom pb-2">
+        cart.forEach(item => {
+            total += item.harga * item.qty;
+            jumlah += item.qty;
+        html += `
+            <div class="border-bottom pb-2 mb-2">
+                <b>${item.nama}</b><br>
+                ${item.qty} x Rp ${item.harga}
+                <div class="mt-1">
+                    <button
+                    class="btn btn-sm btn-danger"
+                    onclick="kurang(${item.id})">
+                        -
+                    </button>
+                    <span class="mx-2">
+                        ${item.qty}
+                    </span>
+                    <button
+                    class="btn btn-sm btn-success"
+                    onclick="tambah(${item.id}, '${item.nama}', ${item.harga} )">
+                        +
+                    </button>
+                </div>
+            </div>
+            `;
+        });
+    }
 
-<div>
-<b>${item.nama}</b><br>
-<small>${item.qty} x Rp ${item.harga}</small>
-</div>
+    document.getElementById("keranjang")
+    .innerHTML = html;
 
-<div>
-<button class="btn btn-sm btn-danger" onclick="kurang(${item.id})">-</button>
-<span class="mx-2">${item.qty}</span>
-<button class="btn btn-sm btn-success" onclick="tambah(${item.id},'${item.nama}',${item.harga})">+</button>
-</div>
+    document.getElementById("totalItem")
+    .innerText = jumlah + " items";
 
-</div>
-`;
-});
-
-}
-
-document.getElementById("keranjang").innerHTML=html;
-document.getElementById("totalItem").innerText=jumlah+" items";
-document.getElementById("totalHarga").innerText="Rp "+total.toLocaleString();
-document.getElementById("btn-pesan").disabled = cart.length === 0;
-
+    document.getElementById("totalHarga")
+    .innerText = "Rp " + total.toLocaleString();
 }
 
 function kirimCart(){
-if(cart.length==0){
-    alert("Keranjang kosong!");
-    return false;
-}
-document.getElementById("cartInput").value =
-JSON.stringify(cart);
-return true;
+    if(cart.length == 0){
+        alert("Keranjang kosong!");
+        return false;
+    }
+    document.getElementById("cartInput").value =
+    JSON.stringify(cart);
+    return true;
 }
 </script>
-
 </body> 
 </html>

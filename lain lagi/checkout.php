@@ -10,19 +10,19 @@ include 'koneksi.php';
 //     die("Keranjang kosong");
 // }
 
+if(isset($_POST['cart'])){
+
+    $cart = json_decode($_POST['cart'], true);
+
+}else{
+    die("Keranjang kosong");
+}
+
 $total = 0;
-$id=$_SESSION['id_menu'];
-while($qty = $_SESSION['cart'][$id]){
 
-    $menu = mysqli_query($koneksi,
-        "SELECT * FROM menu WHERE id_menu='$id'"
-    );
+foreach($cart as $c){
 
-    $data = mysqli_fetch_assoc($menu);
-
-    $subtotal = $data['harga'] * $qty;
-
-    $total += $subtotal;
+    $total += $c['harga'] * $c['qty'];
 }
 ?>
 
@@ -41,7 +41,7 @@ while($qty = $_SESSION['cart'][$id]){
 <h4>Checkout</h4>
 <hr>
 
-<form method="POST">
+<form method="POST" action="checkout.php">
 
 <table class="table">
 <tr>
@@ -50,18 +50,15 @@ while($qty = $_SESSION['cart'][$id]){
 <th>Subtotal</th>
 </tr>
 
-<?php foreach($_SESSION['cart'] as $id => $qty){ 
-    $menu = mysqli_query($koneksi, "SELECT * FROM menu WHERE id_menu='$id'");
-    $c = mysqli_fetch_assoc($menu);
-?>
+<?php foreach($cart as $c){ ?>
 <tr>
 <td><?= $c['nama'] ?></td>
-<td><?= $qty ?></td>
-<td>Rp <?= number_format($c['harga'] * $qty) ?></td>
+<td><?= $c['qty'] ?></td>
+<td>Rp <?= number_format($c['harga'] * $c['qty']) ?></td>
 </tr>
 
 <input type="hidden" name="id_menu[]" value="<?= $c['id'] ?>">
-<input type="hidden" name="qty[]" value="<?= $qty ?>">
+<input type="hidden" name="qty[]" value="<?= $c['qty'] ?>">
 <?php } ?>
 
 </table>
@@ -78,7 +75,13 @@ while($qty = $_SESSION['cart'][$id]){
 <label>Kembalian</label>
 <input type="text" id="kembali" class="form-control" readonly>
 </div>
+<input type="hidden"
+name="total"
+value="<?= $total ?>">
 
+<input type="hidden"
+name="cart"
+value='<?= json_encode($cart) ?>'>
 <button name="bayar_btn" class="btn btn-success w-100">Cetak Struk</button>
 
 </form>
@@ -136,6 +139,6 @@ if(isset($_POST['bayar_btn'])){
         ");
     }
 
-    echo "<script>window.location='struk.php?id=$id_pesanan';</script>";
+    echo "<script>window.location='detail.php?id=$id_pesanan';</script>";
 }
 ?>

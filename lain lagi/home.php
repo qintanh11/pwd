@@ -21,7 +21,7 @@ $user = $user->fetch_assoc();
       HAII !! <br>
     </h5>
     <h6 class="card-subtitle mb-2 text-body-secondary">
-      <?= $user['username']; ?>
+      <?= $_SESSION['username']; ?>
     </h6>
     <p class="card-text">
       Pelayanan terbaik untuk pelanggan <br>

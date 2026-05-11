@@ -11,6 +11,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 $makanan = $koneksi -> query("SELECT * FROM menu where id_kategori = 1");
 $minuman = $koneksi -> query("SELECT * FROM menu where id_kategori = 2");
 $snack = $koneksi -> query("SELECT * FROM menu where id_kategori = 3");
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $id_menu = $_POST['id_menu'];
+    if(isset($_SESSION['cart'][$id_menu])){
+        $_SESSION['cart'][$id_menu]++;
+    }else{
+        $_SESSION['cart'][$id_menu] = 1;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,8 +74,12 @@ $snack = $koneksi -> query("SELECT * FROM menu where id_kategori = 3");
     <div class="menu-box-kategori">
     <?php while($pesan = mysqli_fetch_assoc($makanan)){ ?>
     <div class="card shadow-sm text-center"
-        onclick="tambah(<?= $pesan['id_menu'] ?>,'<?= $pesan['nama_menu'] ?>',<?= $pesan['harga'] ?>)"
-        style="cursor:pointer;">
+onclick="tambah(
+<?= $pesan['id_menu'] ?>,
+'<?= $pesan['nama_menu'] ?>',
+<?= $pesan['harga'] ?>
+)"
+style="cursor:pointer;">
     <div class="card" style="width: 13rem;">
     <img src="..." class="card-img-top" alt="...">
     <div class="card-body">
@@ -75,6 +87,7 @@ $snack = $koneksi -> query("SELECT * FROM menu where id_kategori = 3");
           <?= $pesan['nama_menu']; ?>  <br>
            Rp. <?= $pesan['harga']; ?> 
         </p>
+    </div>
     </div>
     </div>
     </div>
@@ -85,8 +98,14 @@ $snack = $koneksi -> query("SELECT * FROM menu where id_kategori = 3");
     <div class="menu-box-kategori">
     <?php while($pesan = mysqli_fetch_assoc($minuman)){ ?>
     <div class="card shadow-sm text-center"
-        onclick="tambah(<?= $pesan['id_menu'] ?>,'<?= $pesan['nama_menu'] ?>',<?= $pesan['harga'] ?>)"
-        style="cursor:pointer;">
+onclick="tambah(
+<?= $pesan['id_menu'] ?>,
+'<?= $pesan['nama_menu'] ?>',
+<?= $pesan['harga'] ?>
+)"
+style="cursor:pointer;">
+<div class="card shadow-sm text-center"
+style="cursor:pointer;">
     <div class="card" style="width: 13rem;">
     <img src="..." class="card-img-top" alt="...">
     <div class="card-body">
@@ -97,15 +116,20 @@ $snack = $koneksi -> query("SELECT * FROM menu where id_kategori = 3");
     </div>
     </div>
     </div>
-    <?php } ?>
+    </div>
+    <?php }    ?>
     </div>
     <!-- Menu dengan kategori snack -->
      <h3>snack</h3>
      <div class="menu-box-kategori">
     <?php while($pesan = mysqli_fetch_assoc($snack)){ ?>
-    <div class="card shadow-sm text-center"
-        onclick="tambah(<?= $pesan['id_menu'] ?>,'<?= $pesan['nama_menu'] ?>',<?= $pesan['harga'] ?>)"
-        style="cursor:pointer;">
+   <div class="card shadow-sm text-center"
+onclick="tambah(
+<?= $pesan['id_menu'] ?>,
+'<?= $pesan['nama_menu'] ?>',
+<?= $pesan['harga'] ?>
+)"
+style="cursor:pointer;">
     <div class="card" style="width: 13rem;">
     <img src="..." class="card-img-top" alt="...">
     <div class="card-body">
@@ -116,6 +140,7 @@ $snack = $koneksi -> query("SELECT * FROM menu where id_kategori = 3");
     </div>
     </div>
     </div>
+     </div>
     <?php } ?>
      </div>
      <label for="open-cart" class="floating-cart">
