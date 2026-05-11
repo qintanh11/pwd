@@ -16,25 +16,21 @@ $query=$koneksi -> query("select*from riwayat inner join transaksi on riwayat.id
     
 </head>
 <body>
-    <table>
+   
 <ul class="list-group list-group-flush">
 <?php while($riwayat = mysqli_fetch_assoc($query)){ ?>
-<tr>
-    <td><a href="struk.php">
-    <li class="list-group-item" id="pesanan<?= $i; ?>">
-    <label for="pesanan<?= $i; ?>"> <?= $riwayat['id_riwayat']; ?></label>
-    </li>
-    </a></td>
-    <td align="center">
-        <?= $riwayat['tanggal']; ?>
-    </td>
-    <td>
+ 
+    <a style="color: black;" href="struk.php?id_riwayat=<?= $riwayat['id_riwayat']; ?>">
+   <li class="list-group-item" id="<?= $riwayat['id_riwayat']; ?>">
+    <label for="pesanan<?= $riwayat['id_riwayat']; ?>"> <?= $riwayat['id_riwayat']; ?></label>
+    <?= $riwayat['tanggal']; ?>
         <?= $riwayat['total_harga']; ?>
-    </td>
+          
+</li>
+  </a>
+        
 
-</tr>
 <?php } ?>
 </ul>
-</table>
 </body>
 </html>

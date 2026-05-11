@@ -72,15 +72,6 @@ $query=$koneksi -> query("select*from menu inner join kategori on menu.id_katego
               
               
                 <p id="jumlah" >tambah menu</p>
-                 
-                <!-- <p onclick="this.innerText == 'klik lagi serius gajadi boong' > -->
-
-                <!-- // (document.getElementById('klik').innerHTML='boong &lt;br&gt; bayar utang lu',this.innerText='')
-                //  : this.innerText == 'Klik Lagi' ? (document.getElementById('klik').innerHTML='Tapi boong',
-                //   this.innerText='klik lagi serius gajadi boong') : (document.getElementById('klik').innerHTML='i love you!',
-                //    this.innerText='Klik Lagi') 
-                // Click me!  </p> -->
-               
               <p><i class="bi bi-dash"></i></p>
                 </div>
                 
@@ -99,26 +90,23 @@ $query=$koneksi -> query("select*from menu inner join kategori on menu.id_katego
 </html>
 
 <script>
-  function updateUI(id, qty) {
-    let display = document.getElementById('qty-display-' + id);
-    let inputHidden = document.getElementById('qty-val-' + id);
-
-    // Update nilai di hidden input
-    inputHidden.value = qty;
-
-    // Update tampilan teks
-    if (qty > 0) {
-        display.innerText = qty;
-    } else {
-        display.innerText = "tambah menu";
-    }
-
-    // (Opsional) Kirim ke session via fetch jika ingin permanen
-    // updateSession(id, qty); 
+  function tambah_qyt(id){
+let item=cart.find(qyt=>qyt.id===Number(id));
+if(item){
+    item.qty++;
+}else{
+    cart.push({id,qty:1});
+  }
 }
-function tambah(id) {
-    let currentQty = parseInt(document.getElementById('qty-val-' + id).value);
-    let newQty = currentQty + 1;
-    updateUI(id, newQty);
-}
+html += `
+<div class="d-flex justify-content-between mb-2 border-bottom pb-2">
+<div>
+<b>${item.id}</b><br>
+<small>${item.qty}</small>
+</div>
+
+
+
+</div>
+`;
 </script>

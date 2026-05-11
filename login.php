@@ -1,4 +1,5 @@
 <?php
+include 'koneksi.php';
 session_start();
 $data_kasir = [
     ["username" => "qintan", "password" => "118"],
