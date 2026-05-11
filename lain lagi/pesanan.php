@@ -39,11 +39,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
     .card{
         margin: 10px;
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    .card-title {
+    color: #2d5a27;
+    font-weight: 600;
     }
     .card:hover{
     transform: scale(1.04);
     transition: 0.2s;
-}
+    }
     .floating-cart{
     position: fixed;
     bottom: 20px;
@@ -65,6 +73,37 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     transform: scale(1.1);
     transition: 0.2s;
 }
+.btn-primary {
+    background: #2d5a27;
+    border: none;
+}
+.btn-primary:hover {
+    background: #1e3d1a;
+}
+
+.btn-success {
+    background: #f1c40f;
+    border: none;
+    color: #4b3621;
+    font-weight: bold;
+}
+
+.btn-success:hover {
+    background: #d4ac0d;
+    color: #000;
+}
+.floating-cart {
+    background: #f1c40f !important;
+    color: #4b3621 !important;
+    border: 2px solid #4b3621;
+}
+
+/* --- Animasi --- */
+.card:hover {
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+}
+
 </style>
 </head>
 <body>

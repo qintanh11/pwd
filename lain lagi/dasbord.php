@@ -5,6 +5,7 @@ if (!isset($_SESSION['username'])) {
     header("Location: loginregist.php");
     exit();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,22 +17,33 @@ if (!isset($_SESSION['username'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 
 <style>
-nav{
-    background: #202b37;
+body {
+    background-color: #f0f4f0; /* Hijau pucat biar adem */
+    font-family: 'Poppins', sans-serif;
+    color: #333;
 }
 
-.navbar{
+
+.navbar , nav{
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
     margin: 0;
-    background: #202b37;
-    
+    background: #4b3621 !important; /* Cokelat Kayu Tua */
+    border-bottom: 3px solid #f1c40f;
 }
 .navbar-brand {
     font-weight: bold;
     -webkit-text-stroke: 1px white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    -webkit-text-stroke: 0px !important; /* Bersihkan stroke lama */
+    color: white !important;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800 !important;
+    color: #f1c40f !important;
+    text-shadow: 2px 2px 0px #000;
 }
 .menu{
     position: fixed;
@@ -39,8 +51,9 @@ nav{
     left: 0;
     width: 220px;
     height: 100vh;
-    background: #2c3e50;
     padding-top: 20px;
+    background: #3d2b1f; /* Lebih gelap dari navbar */
+    border-right: 2px solid #2d5a27;
 }
 
 .menu ul{
@@ -56,9 +69,12 @@ nav{
     color: white;
     text-align: left;
     cursor: pointer;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: 0.3s;
 }
 .btn-menu:hover{
-    background: #34495e;
+    background: #2d5a27 !important; /* Berubah jadi hijau saat hover */
+    padding-left: 25px;
 }
 .konten{
     margin-left: 220px;
@@ -71,8 +87,6 @@ nav{
     bottom: 20px;
     width: 60px;
     height: 60px;
-    background: #0d6efd;
-    color: white;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -82,8 +96,30 @@ nav{
     z-index: 1000;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     transition: 0.3s;
+    background: #f1c40f !important;
+    color: #4b3621 !important;
+    border: 2px solid #4b3621;
+}
+.btn-primary {
+    background: #2d5a27;
+    border: none;
 }
 
+.btn-primary:hover {
+    background: #1e3d1a;
+}
+
+.btn-success {
+    background: #f1c40f;
+    border: none;
+    color: #4b3621;
+    font-weight: bold;
+}
+
+.btn-success:hover {
+    background: #d4ac0d;
+    color: #000;
+}
 .floating-cart:hover{
     transform: scale(1.1);
     background: #0b5ed7;

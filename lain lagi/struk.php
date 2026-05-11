@@ -36,6 +36,28 @@ $kembali = $bayar - $total;
 <head>
 <title>Struk</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+.btn-primary {
+    background: #2d5a27;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #1e3d1a;
+}
+
+.btn-success {
+    background: #f1c40f;
+    border: none;
+    color: #4b3621;
+    font-weight: bold;
+}
+
+.btn-success:hover {
+    background: #d4ac0d;
+    color: #000;
+}
+</style>
 </head>
 
 <body>

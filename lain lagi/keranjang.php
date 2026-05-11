@@ -16,13 +16,23 @@ include 'koneksi.php';
     right: 0;
     width: 300px;
     height: calc(100vh - 56px);
-    background: white;
-    border-left: 1px solid #ddd;
     padding: 20px;
     overflow-y: auto;
+    background: #ffffff;
+    border-left: 4px solid #2d5a27;
+}
+#list-cart b {
+    color: #2d5a27;
 }
 .ul{
     padding-bottom: 20px ;
+}
+#totalItem {
+    background: #f1c40f;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: #4b3621;
 }
 </style>
 </head>

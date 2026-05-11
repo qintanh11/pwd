@@ -31,23 +31,31 @@ if(isset($_POST['login'])){
 
 <style>
 body{
-    background: #F8F9FA;
+    background: url("poto_kicau.jpeg");
     font-family: Arial, sans-serif;
+    background-size: cover;       /* bikin full */
+    background-position: center;   /* posisi tengah */
+    background-repeat: no-repeat;  /* tidak diulang */
 }
 
 .card{
     border: none;
     border-radius: 20px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    background: rgba(255, 255, 255, 0.9);
+    border-top: 5px solid #2d5a27;
 }
 
 h4{
     font-size: 35px;
     font-weight: bold;
+    color: #4b3621;
 }
 
 h4 span{
     color: grey;
+    color: #f1c40f; 
+    text-shadow: 1px 1px 1px #000;
 }
 
 .form-control{
@@ -61,7 +69,7 @@ h4 span{
 }
 
 .btn-primary{
-    background: grey;
+    background: #2d5a27;
     border: none;
     border-radius: 12px;
     padding: 10px;
@@ -71,10 +79,66 @@ h4 span{
 .btn-primary:hover{
     background: grey;
 }
+.video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+/* INTRO SCREEN */
+#intro {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url("https://i.pinimg.com/736x/d7/dd/b8/d7ddb842996bc660c24e916a98c0751c.jpg");
+     background-size: cover;       /* ini yang bikin full */
+    background-position: center;   /* posisi tengah */
+    background-repeat: no-repeat;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 1s ease;
+    z-index: 10;
+}
+
+/* ANIMASI NAIK KE ATAS */
+#intro.hide {
+    transform: translateY(-100%);
+}
 </style>
 
 </head>
-<body class="bg-light d-flex justify-content-center align-items-center vh-100">
+<body class="bg-light d-flex justify-content-center align-items-center vh-100" onclick="playSound()">
+<div id="intro" onclick="start()">
+    <div class="card">
+  <div class="card-body">
+    klik dimana aja untuk masuk kak :>
+  </div>
+    </div>
+</div>
+<video autoplay muted loop class="video-bg">
+    <source src="pideo-kicau.mp4" type="video/mp4">
+</video>
+    <audio id="bgSound">
+    <source src="dj-kicau-mania.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function playSound(){
+    document.getElementById("bgSound").play();
+}
+
+function start(){
+    document.getElementById("intro").classList.add("hide");
+}
+</script>
+
+
     <div class="container">
         <div class="card p-4 mx-auto" style="max-width:400px">
         <h4 class="text-center">ki<span>CUAN</span>mania</h4>

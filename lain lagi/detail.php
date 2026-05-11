@@ -21,6 +21,28 @@ $data = mysqli_query($koneksi, "SELECT pesanan.*, user.username
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <title>Detail Transaksi</title>
+    <style>
+.btn-primary {
+    background: #2d5a27;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #1e3d1a;
+}
+
+.btn-success {
+    background: #f1c40f;
+    border: none;
+    color: #4b3621;
+    font-weight: bold;
+}
+
+.btn-success:hover {
+    background: #d4ac0d;
+    color: #000;
+}
+    </style>
 </head>
 <body>
     <div class="container mt-5">

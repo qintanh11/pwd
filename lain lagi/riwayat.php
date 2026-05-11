@@ -28,6 +28,26 @@ $data= mysqli_query($koneksi, "SELECT tgl_pesanan, SUM(total) as total_harian
     transform: scale(1.04);
     transition: 0.2s;
     }
+    .btn-primary {
+    background: #2d5a27;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #1e3d1a;
+}
+
+.btn-success {
+    background: #f1c40f;
+    border: none;
+    color: #4b3621;
+    font-weight: bold;
+}
+
+.btn-success:hover {
+    background: #d4ac0d;
+    color: #000;
+}
     </style>
 </head>
 <body class="bg-light">
