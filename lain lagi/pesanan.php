@@ -103,6 +103,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     transform: translateY(-5px);
     transition: all 0.3s ease;
 }
+.card img {
+    width: 100%;
+    height: 200px;        
+    object-fit: cover;    
+}
 
 </style>
 </head>
@@ -121,7 +126,7 @@ onclick="tambah(
 )"
 style="cursor:pointer;">
     <div class="card" style="width: 13rem;">
-    <img src="..." class="card-img-top" alt="...">
+    <img src="gambar/<?= $pesan['foto']; ?>" class="mb-2" alt="foto" style="width: 90;">
     <div class="card-body">
         <p class="card-text">
           <?= $pesan['nama_menu']; ?>  <br>
@@ -144,7 +149,7 @@ onclick="tambah(
 )"
 style="cursor:pointer;">
     <div class="card" style="width: 13rem;">
-    <img src="..." class="card-img-top" alt="...">
+    <img src="gambar/<?= $pesan['foto']; ?>" class="mb-2" alt="foto" style="width: 90;">
     <div class="card-body">
         <p class="card-text">
           <?= $pesan['nama_menu']; ?>  <br>
@@ -167,7 +172,7 @@ onclick="tambah(
 )"
 style="cursor:pointer;">
     <div class="card" style="width: 13rem;">
-    <img src="..." class="card-img-top" alt="...">
+    <img src="gambar/<?= $pesan['foto']; ?>" class="mb-2" alt="foto" style="width: 90;">
     <div class="card-body">
         <p class="card-text">
           <?= $pesan['nama_menu']; ?>  <br>
