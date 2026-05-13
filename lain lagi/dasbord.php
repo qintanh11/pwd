@@ -171,7 +171,7 @@ body {
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
       <img src="https://i.pinimg.com/736x/31/50/7a/31507a21a55ff88f5525b141cbfd2027.jpg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-      Kicauan mania
+      Kicuan mania
     </a>
   </div>
 </div>
