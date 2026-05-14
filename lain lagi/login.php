@@ -31,7 +31,7 @@ if(isset($_POST['login'])){
 
 <style>
 body{
-    /* background: url("poto_kicau.jpeg"); */
+    background: url("poto_kicau.jpeg");
     font-family: Arial, sans-serif;
     background-size: cover;       /* bikin full */
     background-position: center;   /* posisi tengah */
@@ -114,7 +114,7 @@ h4 span{
 
 </head>
 <body class="bg-light d-flex justify-content-center align-items-center vh-100" onclick="playSound()">
-<!-- <div id="intro" onclick="start()">
+<div id="intro" onclick="start()">
     <div class="card">
   <div class="card-body">
     klik dimana aja untuk masuk kak :>
@@ -136,7 +136,7 @@ function playSound(){
 function start(){
     document.getElementById("intro").classList.add("hide");
 }
-</script> -->
+</script>
 
 
     <div class="container">
