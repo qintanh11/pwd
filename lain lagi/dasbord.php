@@ -301,13 +301,16 @@ function render(){
 }
 
 function kirimCart(){
+
     if(cart.length == 0){
         alert("Keranjang kosong!");
         return false;
     }
 
-    document.getElementById("cartInput")
-    .value = JSON.stringify(cart);
+    document.getElementById("cartInput").value = JSON.stringify(cart);
+
+    cart = [];
+
     return true;
 }
 
