@@ -1,12 +1,27 @@
 <?php
 session_start();
-if(!isset($_SESSION['id_user'])){ 
-    header("location:login.php");
-    exit(); }
+// if(!isset($_SESSION['id_user'])){ 
+//     header("location:login.php");
+//     exit(); }
 
 include 'koneksi.php';
+if(isset($_GET['hps'])){
+// hapus transaksi
+mysqli_query($koneksi,"
+DELETE FROM transaksi
+WHERE id_pesanan = '{$_GET['hps']}'
+");
 
+// hapus pesanan
+mysqli_query($koneksi,"
+DELETE FROM pesanan
+WHERE id_pesanan='{$_GET['hps']}'
+");    header("location: dasbord.php");
+    exit();
+}
 $id = $_GET['id'];
+
+
 
 $pesanan = mysqli_fetch_array(mysqli_query($koneksi,"
 SELECT * FROM pesanan WHERE id_pesanan='$id'
@@ -93,6 +108,7 @@ Kembalian: Rp <?= number_format($kembali) ?>
 </p>
 
 <button onclick="window.print()" class="btn btn-success w-100">Print</button>
+<a href="struk.php?hps=<?= $id; ?>" class="btn btn-outline-danger w-100 mt-2">Batalkan pesanan</a> 
 <a href="dasbord.php" class="btn btn-primary w-100 mt-2">Kasir</a>
 
 </div>

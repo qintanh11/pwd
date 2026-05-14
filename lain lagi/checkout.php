@@ -1,9 +1,9 @@
 <?php
 session_start();
-// if (!isset($_SESSION['username'])) {
-//     header("Location: loginregist.php");
-//     exit();
-// }
+if (!isset($_SESSION['username'])) {
+    header("Location: loginregist.php");
+    exit();
+}
 include 'koneksi.php';
 
 // if(!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0){
