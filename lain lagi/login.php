@@ -93,7 +93,7 @@ h4 span{
     position: fixed;
     width: 100%;
     height: 100%;
-    background: url("https://i.pinimg.com/736x/d7/dd/b8/d7ddb842996bc660c24e916a98c0751c.jpg");
+    background: url("Herosection.png");
      background-size: cover;       /* ini yang bikin full */
     background-position: center;   /* posisi tengah */
     background-repeat: no-repeat;
@@ -115,11 +115,7 @@ h4 span{
 </head>
 <body class="bg-light d-flex justify-content-center align-items-center vh-100" onclick="playSound()">
 <div id="intro" onclick="start()">
-    <div class="card">
-  <div class="card-body">
-    klik dimana aja untuk masuk kak :>
-  </div>
-    </div>
+    
 </div>
 <video autoplay muted loop class="video-bg">
     <source src="pideo-kicau.mp4" type="video/mp4">
