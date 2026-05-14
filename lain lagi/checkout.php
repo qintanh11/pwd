@@ -34,7 +34,6 @@ foreach($cart as $c){
 </head>
 
 <body>
-
 <div class="container mt-5">
 <div class="card p-4">
 
@@ -83,6 +82,8 @@ value="<?= $total ?>">
 name="cart"
 value='<?= json_encode($cart) ?>'>
 <button name="bayar_btn" class="btn btn-success w-100">Cetak Struk</button>
+<button type="button"onclick="window.history.back()" class="btn btn-warning w-100 mt-2">Edit Pesanan</button>
+<button type="button" onclick="batalPesanan()" class="btn btn-danger w-100 mt-2">Batalkan Pesanan</button>
 
 </form>
 
@@ -103,6 +104,12 @@ if(bayar==""){
     document.getElementById("kembali").value="Rp "+kembali.toLocaleString();
 }
 }
+
+function batalPesanan(){
+    localStorage.removeItem('cart');
+    window.location='dasbord.php';
+}
+
 </script>
 
 </body>

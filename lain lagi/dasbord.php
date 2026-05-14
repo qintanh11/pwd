@@ -205,7 +205,10 @@ body {
 
 <script>
 
-let cart = [];
+let cart = JSON.parse(
+localStorage.getItem('cart')
+) || [];
+render();
 
 function tambah(id,nama,harga){
     let item = cart.find(i => i.id == id);
@@ -234,21 +237,20 @@ function kurang(id){
 }
 
 function render(){
-
     let html = "";
     let total = 0;
     let jumlah = 0;
-
     if(cart.length == 0){
-        html = `<p class="text-muted">
+        html = `
+        <p class="text-muted">
         Belum ada pesanan
-        </p>`;
+        </p>
+        `;
     }else{
-
         cart.forEach(item => {
             total += item.harga * item.qty;
             jumlah += item.qty;
-        html += `
+            html += `
             <div class="border-bottom pb-2 mb-2">
                 <b>${item.nama}</b><br>
                 ${item.qty} x Rp ${item.harga}
@@ -256,17 +258,25 @@ function render(){
                     <button
                     class="btn btn-sm btn-danger"
                     onclick="kurang(${item.id})">
-                        -
+                    -
                     </button>
+
                     <span class="mx-2">
-                        ${item.qty}
+                    ${item.qty}
                     </span>
+
                     <button
                     class="btn btn-sm btn-success"
-                    onclick="tambah(${item.id}, '${item.nama}', ${item.harga} )">
-                        +
+                    onclick="tambah(
+                    ${item.id},
+                    '${item.nama}',
+                    ${item.harga}
+                    )">
+                    +
                     </button>
+
                 </div>
+
             </div>
             `;
         });
@@ -280,6 +290,14 @@ function render(){
 
     document.getElementById("totalHarga")
     .innerText = "Rp " + total.toLocaleString();
+
+    document.getElementById("cartInput")
+    .value = JSON.stringify(cart);
+
+    localStorage.setItem(
+    'cart',
+    JSON.stringify(cart)
+    );
 }
 
 function kirimCart(){
@@ -287,10 +305,12 @@ function kirimCart(){
         alert("Keranjang kosong!");
         return false;
     }
-    document.getElementById("cartInput").value =
-    JSON.stringify(cart);
+
+    document.getElementById("cartInput")
+    .value = JSON.stringify(cart);
     return true;
 }
+
 </script>
 </body> 
 </html>
